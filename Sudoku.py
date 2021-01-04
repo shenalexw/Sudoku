@@ -1,5 +1,3 @@
-from random import randrange
-
 board = [
     [7, 8, 0, 4, 0, 0, 1, 2, 0],
     [6, 0, 0, 0, 7, 5, 0, 0, 9],
@@ -17,6 +15,7 @@ def clear(game):
     for row in range(len(game)):
         for column in range(len(game)):
             game[row][column] = 0
+    return game
 
 
 def solve(game):
@@ -30,6 +29,7 @@ def solve(game):
                             return True
                         game[row][column] = 0
                 return False
+    return game
 
 
 
