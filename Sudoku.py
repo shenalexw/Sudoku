@@ -17,20 +17,6 @@ def clear(game):
             game[row][column] = 0
 
 
-def solve(game):
-    for row in range(len(game)):
-        for column in range(len(game)):
-            if game[row][column] == 0:
-                for num in range(1, 10):
-                    if check(game, (row, column), num):
-                        game[row][column] = num
-                        if solve(game):
-                            return True
-                        game[row][column] = 0
-                return False
-
-
-
 def print_board(game):
     for row in range(len(game)):
         if row % 3 == 0 and row != 0:
@@ -60,17 +46,34 @@ def check(game, location, number):
     column_box = location[1] // 3 * 3
     if game[row][column] != 0:
         return False
-    for row_value in range(len(game)):
-        if game[row][row_value] == number:
-            return False
     for col_value in range(len(game)):
-        if game[col_value][column] == number:
+        if game[row][col_value] == number and column != col_value:
             return False
-    for row_value in range(row_box, row_box + 3):
-        for col_value in range(column_box, column_box + 3):
-            if game[row_value][col_value] == number:
+    for row_value in range(len(game)):
+        if game[row_value][column] == number and row != row_value:
+            return False
+    for col_value in range(row_box, row_box + 3):
+        for row_value in range(column_box, column_box + 3):
+            if game[col_value][row_value] == number and (row_value, col_value) != location:
                 return False
     return True
 
-print(solve(board))
-print_board(board)
+
+def solve(game):
+    for row in range(len(game)):
+        for column in range(len(game)):
+            if game[row][column] == 0:
+                for num in range(1, 10):
+                    if check(game, (row, column), num):
+                        game[row][column] = num
+                        if solve(game):
+                            print("yeet")
+                            return True
+                        game[row][column] = 0
+                return False
+
+"""
+We have to make a seperate function for finding zero, because once all the sudoku 
+pieces are filled up the function is unable to say that the function is true.
+"""
+
