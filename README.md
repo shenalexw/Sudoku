@@ -15,4 +15,4 @@ The rules of the game are simple: each of the nine blocks has to contain all the
 
 The difficulty lies in that each vertical nine-square column, or horizontal nine-square line across, within the larger square, must also contain the numbers 1-9, without repetition or omission.
 
-Every puzzle has just one correct solution.
+There must be at least 17 clues in order to have a puzzle with one unique solution.
