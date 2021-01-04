@@ -1,4 +1,4 @@
-from random import randrange
+solution = None
 
 board = [
     [7, 8, 0, 4, 0, 0, 1, 2, 0],
@@ -17,9 +17,11 @@ def clear(game):
     for row in range(len(game)):
         for column in range(len(game)):
             game[row][column] = 0
+    return game
 
 
 def solve(game):
+
     for row in range(len(game)):
         for column in range(len(game)):
             if game[row][column] == 0:
@@ -30,6 +32,7 @@ def solve(game):
                             return True
                         game[row][column] = 0
                 return False
+    return game
 
 
 
@@ -73,4 +76,5 @@ def check(game, location, number):
             if game[row_value][col_value] == number:
                 return False
     return True
+
 
