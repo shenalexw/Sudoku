@@ -15,7 +15,6 @@ def clear(game):
     for row in range(len(game)):
         for column in range(len(game)):
             game[row][column] = 0
-    return game
 
 
 def solve(game):
@@ -29,7 +28,6 @@ def solve(game):
                             return True
                         game[row][column] = 0
                 return False
-    return game
 
 
 
@@ -74,3 +72,5 @@ def check(game, location, number):
                 return False
     return True
 
+print(solve(board))
+print_board(board)
