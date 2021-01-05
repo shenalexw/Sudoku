@@ -16,3 +16,9 @@ The rules of the game are simple: each of the nine blocks has to contain all the
 The difficulty lies in that each vertical nine-square column, or horizontal nine-square line across, within the larger square, must also contain the numbers 1-9, without repetition or omission.
 
 There must be at least 17 clues in order to have a puzzle with one unique solution.
+
+References:
+
+Minimum clues for a puzzle: https://www.technologyreview.com/2012/01/06/188520/mathematicians-solve-minimum-sudoku-problem/#:~:text=Sudoku%20fanatics%20have%20found%20numerous,lurking%20somewhere%20in%20puzzle%20space.
+
+How to create a sudoku puzzle:https://www.sudokuwiki.org/sudoku_creation_and_grading.pdf
