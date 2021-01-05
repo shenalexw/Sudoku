@@ -1,14 +1,20 @@
+import random
+
 board = [
-    [7, 8, 0, 4, 0, 0, 1, 2, 0],
-    [6, 0, 0, 0, 7, 5, 0, 0, 9],
-    [0, 0, 0, 6, 0, 1, 0, 7, 8],
-    [0, 0, 7, 0, 4, 0, 2, 6, 0],
-    [0, 0, 1, 0, 5, 0, 9, 3, 0],
-    [9, 0, 4, 0, 6, 0, 0, 0, 5],
-    [0, 7, 0, 3, 0, 0, 0, 1, 2],
-    [1, 2, 0, 0, 0, 7, 4, 0, 0],
-    [0, 4, 9, 2, 0, 6, 0, 0, 7]
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
 ]
+
+hard = 17
+medium = 25
+easy = 30
 
 
 def clear(game):
@@ -36,7 +42,7 @@ def num_input(game, location, number):
     if check(game, location, number):
         game[row][column] = number
     else:
-        return "wrong move"
+        return False
 
 
 def check(game, location, number):
@@ -59,21 +65,69 @@ def check(game, location, number):
     return True
 
 
-def solve(game):
+def find_zero(game):
     for row in range(len(game)):
         for column in range(len(game)):
             if game[row][column] == 0:
-                for num in range(1, 10):
+                return row, column
+    return False
+
+
+def solve(game):
+    if not find_zero(game):
+        return True
+    else:
+        row, column = find_zero(game)
+
+    for num in range(1, 10):
+        if check(game, (row, column), num):
+            game[row][column] = num
+            if solve(game):
+                return True
+            game[row][column] = 0
+    return False
+
+
+def ran_fill(game, counter=0):
+    for row in range(len(game)):
+        for column in range(len(game)):
+            if game[row][column] == 0 and counter <= 17:
+                if random.randrange(4) == 0:
+                    num = random.randrange(1, 10)
                     if check(game, (row, column), num):
-                        game[row][column] = num
-                        if solve(game):
-                            print("yeet")
-                            return True
-                        game[row][column] = 0
-                return False
+                        counter += 1
+                        num_input(game, (row, column), num)
+            if counter >= 17:
+                return None
 
-"""
-We have to make a seperate function for finding zero, because once all the sudoku 
-pieces are filled up the function is unable to say that the function is true.
-"""
+    ran_fill(game, counter)
 
+
+def new_game(game, difficulty, counter=81):
+    rem_num = difficulty
+    for row in range(len(game)):
+        for column in range(len(game)):
+            if game[row][column] != 0 and counter >= rem_num:
+                if random.randrange(2) == 0:
+                    counter -= 1
+                    game[row][column] = 0
+            if counter <= rem_num:
+                return None
+
+    new_game(game, difficulty, counter)
+
+
+def showcase(game):
+    ran_fill(game)
+    print("1")
+    solve(board)
+    print("2")
+    new_game(board, easy)
+    print("Problem:")
+    print_board(game)
+    print("Solution:")
+    solve(board)
+    print_board(game)
+
+
+showcase(board)
