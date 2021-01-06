@@ -13,8 +13,8 @@ board = [
 ]
 
 hard = 17
-medium = 25
-easy = 30
+medium = 30
+easy = 40
 
 
 def clear(game):
@@ -26,14 +26,17 @@ def clear(game):
 def print_board(game):
     for row in range(len(game)):
         if row % 3 == 0 and row != 0:
-            print("=================================")
+            print(" + - - - - - - - - - - - - - - + ")
+        if row == 0:
+            print(" + - - - - - - - - - - - - - - + ")
         for column in range(len(game)):
             if column % 3 == 0:
-                print(" || ", end=" ")
+                print(" | ", end=" ")
             if column == 8:
-                print(game[row][column], end="\n")
+                print(game[row][column], end="  | \n")
             else:
                 print(str(game[row][column]) + " ", end="")
+    print(" + - - - - - - - - - - - - - - + ")
 
 
 def num_input(game, location, number):
@@ -76,6 +79,7 @@ def find_zero(game):
 def solve(game):
     if not find_zero(game):
         return True
+
     else:
         row, column = find_zero(game)
 
@@ -91,16 +95,17 @@ def solve(game):
 def ran_fill(game, counter=0):
     for row in range(len(game)):
         for column in range(len(game)):
-            if game[row][column] == 0 and counter <= 17:
-                if random.randrange(4) == 0:
-                    num = random.randrange(1, 10)
-                    if check(game, (row, column), num):
-                        counter += 1
-                        num_input(game, (row, column), num)
+            if game[row][column] == 0:
+                num = random.randrange(1, 10)
+                if check(game, (row, column), num):
+                    counter += 1
+                    num_input(game, (row, column), num)
             if counter >= 17:
-                return None
-
-    ran_fill(game, counter)
+                if not solve(game):
+                    clear(game)
+                    ran_fill(game, 0)
+                else:
+                    return None
 
 
 def new_game(game, difficulty, counter=81):
@@ -117,11 +122,8 @@ def new_game(game, difficulty, counter=81):
     new_game(game, difficulty, counter)
 
 
-def showcase(game):
+def showcase_easy(game):
     ran_fill(game)
-    print("1")
-    solve(board)
-    print("2")
     new_game(board, easy)
     print("Problem:")
     print_board(game)
@@ -130,4 +132,24 @@ def showcase(game):
     print_board(game)
 
 
-showcase(board)
+def showcase_medium(game):
+    ran_fill(game)
+    new_game(board, medium)
+    print("Problem:")
+    print_board(game)
+    print("Solution:")
+    solve(board)
+    print_board(game)
+
+
+def showcase_hard(game):
+    ran_fill(game)
+    new_game(board, hard)
+    print("Problem:")
+    print_board(game)
+    print("Solution:")
+    solve(board)
+    print_board(game)
+
+
+showcase_easy(board)
