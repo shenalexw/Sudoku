@@ -26,9 +26,9 @@ def clear(game):
 def print_board(game):
     for row in range(len(game)):
         if row % 3 == 0 and row != 0:
-            print(" + - - - - - - - - - - - - - - + ")
+            print(" - - - - - + - - - - + - - - - - ")
         if row == 0:
-            print(" + - - - - - - - - - - - - - - + ")
+            print(" - - - - - - - - - - - - - - - - ")
         for column in range(len(game)):
             if column % 3 == 0:
                 print(" | ", end=" ")
@@ -36,7 +36,7 @@ def print_board(game):
                 print(game[row][column], end="  | \n")
             else:
                 print(str(game[row][column]) + " ", end="")
-    print(" + - - - - - - - - - - - - - - + ")
+    print(" - - - - - - - - - - - - - - -  ")
 
 
 def num_input(game, location, number):
@@ -152,4 +152,8 @@ def showcase_hard(game):
     print_board(game)
 
 
-showcase_easy(board)
+if __name__ == '__main__':
+    showcase_easy(board)
+
+
+
