@@ -1,5 +1,5 @@
 # Sudoku
-###Abstract: 
+### Abstract:
 
 Sudoku.py runs a text based sudoku generator and allows the user to enter their difficulty level in the console. Once 
 selected the console will display an unsolved puzzle followed by the solution.
@@ -8,14 +8,14 @@ Try out my text based sudoku simulator in the repl.it link below.
 
 ***repl.it:*** https://repl.it/@shenalexw/Sudoku#Sudoku.py
 
-###Goals for This Project:
+### Goals for This Project:
 
 - Simulate the game of Sudoku through Python.
 - Create a GUI that allows you to input numbers.
 - Create a solver so that it will solve any given puzzle.
 - Create an auto-generated sudoku that is solvable.
 
-###The Rules of Sudoku:
+### The Rules of Sudoku:
 
 The classic Sudoku game involves a grid of 81 squares. The grid is divided into nine blocks, each containing nine squares.
 
