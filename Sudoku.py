@@ -123,13 +123,23 @@ def new_game(game, difficulty, counter=81):
 
 
 def showcase(game, difficulty):
+    go = True
     ran_fill(game)
     new_game(board, difficulty)
     print("Problem:")
     print_board(game)
-    print("Solution:")
-    solve(board)
-    print_board(game)
+    while go:
+        cont = input("Would you like to see the Solution? (yes/no): ")
+        if cont.lower() == "yes":
+            print("Solution:")
+            solve(board)
+            print_board(game)
+            go = False
+        elif cont.lower() == "no":
+            print("Good Luck!")
+        else:
+            print("Incorrect input, please try again!")
+
 
 
 if __name__ == '__main__':
