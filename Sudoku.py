@@ -136,9 +136,9 @@ if __name__ == '__main__':
     level = input("Enter Difficulty (easy, medium, hard): ")
     if level.lower() == "easy":
         showcase(board, easy)
-    if level.lower() == "medium":
+    elif level.lower() == "medium":
         showcase(board, medium)
-    if level.lower() == "hard":
+    elif level.lower() == "hard":
         showcase(board, hard)
     else:
         print("Incorrect input, please try again!")
