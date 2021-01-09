@@ -36,7 +36,7 @@ def print_board(game):
                 print(game[row][column], end="  | \n")
             else:
                 print(str(game[row][column]) + " ", end="")
-    print(" - - - - - - - - - - - - - - -  ")
+    print(" - - - - - - - - - - - - - - - - ")
 
 
 def num_input(game, location, number):
