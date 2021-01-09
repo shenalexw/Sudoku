@@ -122,29 +122,9 @@ def new_game(game, difficulty, counter=81):
     new_game(game, difficulty, counter)
 
 
-def showcase_easy(game):
+def showcase(game, difficulty):
     ran_fill(game)
-    new_game(board, easy)
-    print("Problem:")
-    print_board(game)
-    print("Solution:")
-    solve(board)
-    print_board(game)
-
-
-def showcase_medium(game):
-    ran_fill(game)
-    new_game(board, medium)
-    print("Problem:")
-    print_board(game)
-    print("Solution:")
-    solve(board)
-    print_board(game)
-
-
-def showcase_hard(game):
-    ran_fill(game)
-    new_game(board, hard)
+    new_game(board, difficulty)
     print("Problem:")
     print_board(game)
     print("Solution:")
@@ -153,7 +133,15 @@ def showcase_hard(game):
 
 
 if __name__ == '__main__':
-    showcase_easy(board)
+    level = input("Enter Difficulty (easy, medium, hard): ")
+    if level == "easy":
+        showcase(board, easy)
+    if level == "medium":
+        showcase(board, medium)
+    if level == "hard":
+        showcase(board, hard)
+
+
 
 
 
