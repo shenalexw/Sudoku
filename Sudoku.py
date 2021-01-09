@@ -141,7 +141,6 @@ def showcase(game, difficulty):
             print("Incorrect input, please try again!")
 
 
-
 if __name__ == '__main__':
     run = True
     while run:
@@ -157,11 +156,3 @@ if __name__ == '__main__':
             run = False
         else:
             print("Incorrect input, please try again!")
-
-
-
-
-
-
-
-
