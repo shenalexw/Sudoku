@@ -134,12 +134,14 @@ def showcase(game, difficulty):
 
 if __name__ == '__main__':
     level = input("Enter Difficulty (easy, medium, hard): ")
-    if level == "easy":
+    if level.lower() == "easy":
         showcase(board, easy)
-    if level == "medium":
+    if level.lower() == "medium":
         showcase(board, medium)
-    if level == "hard":
+    if level.lower() == "hard":
         showcase(board, hard)
+    else:
+        print("Incorrect input, please try again!")
 
 
 
