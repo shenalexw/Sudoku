@@ -1,4 +1,5 @@
 import random
+import time
 
 board = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -44,6 +45,7 @@ def num_input(game, location, number):
     column = location[1]
     if check(game, location, number):
         game[row][column] = number
+        return True
     else:
         return False
 
@@ -97,9 +99,8 @@ def ran_fill(game, counter=0):
         for column in range(len(game)):
             if game[row][column] == 0:
                 num = random.randrange(1, 10)
-                if check(game, (row, column), num):
+                if num_input(game, (row, column), num):
                     counter += 1
-                    num_input(game, (row, column), num)
             if counter >= 17:
                 if not solve(game):
                     clear(game)
@@ -122,37 +123,124 @@ def new_game(game, difficulty, counter=81):
     new_game(game, difficulty, counter)
 
 
-def showcase(game, difficulty):
+def convert_time(given_seconds):
+    minutes = given_seconds // 60
+    seconds = given_seconds % 60
+    return "%02d:%02d" % (minutes, seconds)
+
+
+def generator(game, difficulty):
     go = True
     ran_fill(game)
     new_game(board, difficulty)
     print("Problem:")
     print_board(game)
+    time_0 = time.time()
     while go:
         cont = input("Would you like to see the Solution? (yes/no): ")
         if cont.lower() == "yes":
             print("Solution:")
             solve(board)
             print_board(game)
-            go = False
+            again_input = True
+            while again_input:
+                again = input("Would you like another puzzle? (yes/no)")
+                if again.lower() == "yes":
+                    generator(game, difficulty)
+                    return
+                elif again.lower() == "no":
+                    go = False
+                    again_input = False
+                else:
+                    print("Incorrect input, please try again!")
         elif cont.lower() == "no":
-            print("Good Luck!")
+            time_1 = time.time()
+            stopwatch = time_1 - time_0
+            display_time = convert_time(stopwatch)
+            print("Good Luck!, it has been:", display_time)
+        else:
+            print("Incorrect input, please try again!")
+
+
+def solver(game):
+    solve_run = True
+    while solve_run:
+        for rows in range(len(game)):
+            for column in range(len(game)):
+                correct_value = True
+                while correct_value:
+                    print("Please input number in row ", rows + 1, "and column ", column + 1, "(type 'res' to restart)")
+                    num = input()
+                    if num.lower() == "res":
+                        solver(game)
+                        return
+                    elif not num.isdigit():
+                        print("Incorrect input! Please input a number 0 - 9.")
+                    elif 9 >= int(num) >= 0:
+                        game[rows][column] = int(num)
+                        correct_value = False
+                    else:
+                        print("Incorrect input! Please input a number 0 - 9.")
+        print("The Problem:")
+        print_board(game)
+        after_input = True
+        while after_input:
+            cont = input("Is this correct? (yes/no)")
+            if cont.lower() == "yes":
+                if solve(game):
+                    print("The Solution:")
+                    print_board(game)
+                    input_run = True
+                    while input_run:
+                        again = input("Would you like to input another puzzle? (yes/no)")
+                        if again.lower() == "yes":
+                            input_run = False
+                            after_input = False
+                            pass
+                        elif again.lower() == "no":
+                            input_run = False
+                            solve_run = False
+                            after_input = False
+                        else:
+                            print("Incorrect input, please try again.")
+                else:
+                    print("Puzzle not Solvable! Please try to input the puzzle again.")
+                    pass
+            elif cont.lower() == "no":
+                print("Please try to input the numbers again.")
+                after_input = False
+            else:
+                print("Incorrect input, please try again.")
+
+
+def main():
+    main_run = True
+    choice_run = True
+    while main_run:
+        choice = input("Would you like a Sudoku Puzzle, or would you like to use the solver? (puzzle / solver)")
+        if choice.lower() == "solver":
+            solver(board)
+            main_run = False
+        elif choice.lower() == "puzzle":
+            while choice_run:
+                level = input("Enter Difficulty (easy, medium, hard): ")
+                if level.lower() == "easy":
+                    generator(board, easy)
+                    choice_run = False
+                    main_run = False
+                elif level.lower() == "medium":
+                    generator(board, medium)
+                    choice_run = False
+                    main_run = False
+                elif level.lower() == "hard":
+                    generator(board, hard)
+                    choice_run = False
+                    main_run = False
+                else:
+                    print("Incorrect input, please try again!")
         else:
             print("Incorrect input, please try again!")
 
 
 if __name__ == '__main__':
-    run = True
-    while run:
-        level = input("Enter Difficulty (easy, medium, hard): ")
-        if level.lower() == "easy":
-            showcase(board, easy)
-            run = False
-        elif level.lower() == "medium":
-            showcase(board, medium)
-            run = False
-        elif level.lower() == "hard":
-            showcase(board, hard)
-            run = False
-        else:
-            print("Incorrect input, please try again!")
+    main()
