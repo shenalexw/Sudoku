@@ -139,9 +139,13 @@ def generator(game, difficulty):
     while go:
         cont = input("Would you like to see the Solution? (yes/no): ")
         if cont.lower() == "yes":
+            time_1 = time.time()
+            stopwatch = time_1 - time_0
+            display_time = convert_time(stopwatch)
             print("Solution:")
             solve(board)
             print_board(game)
+            print("Nice Job!, It took you", display_time, "to complete the puzzle.")
             again_input = True
             while again_input:
                 again = input("Would you like another puzzle? (yes/no)")
@@ -163,54 +167,50 @@ def generator(game, difficulty):
 
 
 def solver(game):
-    solve_run = True
-    while solve_run:
-        for rows in range(len(game)):
-            for column in range(len(game)):
-                correct_value = True
-                while correct_value:
-                    print("Please input number in row ", rows + 1, "and column ", column + 1, "(type 'res' to restart)")
-                    num = input()
-                    if num.lower() == "res":
+    for rows in range(len(game)):
+        for column in range(len(game)):
+            correct_value = True
+            while correct_value:
+                print("Please input number in row ", rows + 1, "and column ", column + 1, "(type 'res' to restart)")
+                num = input()
+                if num.lower() == "res":
+                    solver(game)
+                    return
+                elif not num.isdigit():
+                    print("Incorrect input! Please input a number 0 - 9.")
+                elif 9 >= int(num) >= 0:
+                    game[rows][column] = int(num)
+                    correct_value = False
+                else:
+                    print("Incorrect input! Please input a number 0 - 9.")
+    print("The Problem:")
+    print_board(game)
+    after_input = True
+    while after_input:
+        cont = input("Is this correct? (yes/no)")
+        if cont.lower() == "yes":
+            if solve(game):
+                print("The Solution:")
+                print_board(game)
+                input_run = True
+                while input_run:
+                    again = input("Would you like to input another puzzle? (yes/no)")
+                    if again.lower() == "yes":
                         solver(game)
                         return
-                    elif not num.isdigit():
-                        print("Incorrect input! Please input a number 0 - 9.")
-                    elif 9 >= int(num) >= 0:
-                        game[rows][column] = int(num)
-                        correct_value = False
+                    elif again.lower() == "no":
+                        input_run = False
+                        after_input = False
                     else:
-                        print("Incorrect input! Please input a number 0 - 9.")
-        print("The Problem:")
-        print_board(game)
-        after_input = True
-        while after_input:
-            cont = input("Is this correct? (yes/no)")
-            if cont.lower() == "yes":
-                if solve(game):
-                    print("The Solution:")
-                    print_board(game)
-                    input_run = True
-                    while input_run:
-                        again = input("Would you like to input another puzzle? (yes/no)")
-                        if again.lower() == "yes":
-                            input_run = False
-                            after_input = False
-                            pass
-                        elif again.lower() == "no":
-                            input_run = False
-                            solve_run = False
-                            after_input = False
-                        else:
-                            print("Incorrect input, please try again.")
-                else:
-                    print("Puzzle not Solvable! Please try to input the puzzle again.")
-                    pass
-            elif cont.lower() == "no":
-                print("Please try to input the numbers again.")
-                after_input = False
+                        print("Incorrect input, please try again.")
             else:
-                print("Incorrect input, please try again.")
+                print("Puzzle not Solvable! Please try to input the puzzle again.")
+                pass
+        elif cont.lower() == "no":
+            print("Please try to input the numbers again.")
+            after_input = False
+        else:
+            print("Incorrect input, please try again.")
 
 
 def main():
