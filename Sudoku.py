@@ -208,7 +208,8 @@ def solver(game):
                 pass
         elif cont.lower() == "no":
             print("Please try to input the numbers again.")
-            after_input = False
+            solver(game)
+            return
         else:
             print("Incorrect input, please try again.")
 
