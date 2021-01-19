@@ -1,8 +1,7 @@
 # Sudoku
 ### Abstract:
 
-Sudoku.py runs a text based sudoku generator and allows the user to enter their difficulty level in the console. Once 
-selected the console will display an unsolved puzzle followed by the solution.
+Sudoku.py simulates a text-based sudoku game in Python that allows users to input their own sudoku puzzles in order to acquire the solution or receive a randomly generated sudoku puzzle based on their selected difficulty.
 
 Try out my text based sudoku simulator in the repl.it link below.
 
