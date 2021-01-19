@@ -13,8 +13,8 @@ board = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
 ]
 
-hard = 17
-medium = 30
+hard = 25
+medium = 38
 easy = 40
 
 
@@ -81,7 +81,6 @@ def find_zero(game):
 def solve(game):
     if not find_zero(game):
         return True
-
     else:
         row, column = find_zero(game)
 
@@ -189,7 +188,11 @@ def solver(game):
     while after_input:
         cont = input("Is this correct? (yes/no)")
         if cont.lower() == "yes":
-            if solve(game):
+            if not find_zero(game):
+                print("The Board is full already, Please try to input the puzzle again.")
+                solver(game)
+                return
+            elif solve(game):
                 print("The Solution:")
                 print_board(game)
                 input_run = True
@@ -205,7 +208,8 @@ def solver(game):
                         print("Incorrect input, please try again.")
             else:
                 print("Puzzle not Solvable! Please try to input the puzzle again.")
-                pass
+                solver(game)
+                return
         elif cont.lower() == "no":
             print("Please try to input the numbers again.")
             solver(game)
