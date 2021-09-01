@@ -12,7 +12,6 @@ Try out my text based sudoku simulator in the repl.it link below.
 - Simulate the game of Sudoku through Python.
 - Create a solver so that it will solve any given puzzle.
 - Create an auto-generated sudoku that is solvable.
-- Create a GUI that allows you to input numbers. (In-Progress)
 
 ### The Rules of Sudoku:
 

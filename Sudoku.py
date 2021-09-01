@@ -1,6 +1,8 @@
 import random
 import time
 
+max_num = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
 board = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -170,21 +172,28 @@ def solver(game):
         for column in range(len(game)):
             correct_value = True
             while correct_value:
-                print("Please input number in row ", rows + 1, "and column ", column + 1, "(type 'res' to restart)")
+                print("Please input number in row ", rows + 1, "and column ", column + 1, "(type 'res' to restart or 'quit' to exit)")
                 num = input()
                 if num.lower() == "res":
                     solver(game)
                     return
+                elif num.lower() == "quit":
+                    return
                 elif not num.isdigit():
                     print("Incorrect input! Please input a number 0 - 9.")
                 elif 9 >= int(num) >= 0:
-                    game[rows][column] = int(num)
-                    correct_value = False
+                    if max_num[int(num)] == 9 and int(num) != 0:
+                        print("The number", int(num), "has been entered 9 times, please input a different number or restart your input.")
+                    else:
+                        game[rows][column] = int(num)
+                        max_num[int(num)] += 1
+                        correct_value = False
                 else:
                     print("Incorrect input! Please input a number 0 - 9.")
     print("The Problem:")
     print_board(game)
     after_input = True
+
     while after_input:
         cont = input("Is this correct? (yes/no)")
         if cont.lower() == "yes":
