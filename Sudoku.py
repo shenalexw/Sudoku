@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import random
 import time
 
@@ -20,8 +22,10 @@ medium = 38
 easy = 40
 
 
-def clear(game):
+def clear(game, check):
+    check[0] = 0
     for row in range(len(game)):
+        check[row + 1] = 0
         for column in range(len(game)):
             game[row][column] = 0
 
@@ -104,7 +108,7 @@ def ran_fill(game, counter=0):
                     counter += 1
             if counter >= 17:
                 if not solve(game):
-                    clear(game)
+                    clear(game, max_num)
                     ran_fill(game, 0)
                 else:
                     return None
@@ -125,9 +129,13 @@ def new_game(game, difficulty, counter=81):
 
 
 def convert_time(given_seconds):
+    given_seconds = given_seconds % (24 * 3600)
+    hour = given_seconds // 3600
+    given_seconds %= 3600
     minutes = given_seconds // 60
-    seconds = given_seconds % 60
-    return "%02d:%02d" % (minutes, seconds)
+    given_seconds %= 60
+      
+    return "%d:%02d:%02d" % (hour, minutes, given_seconds)
 
 
 def generator(game, difficulty):
@@ -172,9 +180,10 @@ def solver(game):
         for column in range(len(game)):
             correct_value = True
             while correct_value:
-                print("Please input number in row ", rows + 1, "and column ", column + 1, "(type 'res' to restart or 'quit' to exit)")
+                print("Please input number in row ", rows + 1, "and column ", column + 1, "(type 'res' to restart or 'quit' to exit): ")
                 num = input()
                 if num.lower() == "res":
+                    clear(game, max_num)
                     solver(game)
                     return
                 elif num.lower() == "quit":
@@ -188,6 +197,7 @@ def solver(game):
                         game[rows][column] = int(num)
                         max_num[int(num)] += 1
                         correct_value = False
+                        print_board(game)
                 else:
                     print("Incorrect input! Please input a number 0 - 9.")
     print("The Problem:")
@@ -195,14 +205,15 @@ def solver(game):
     after_input = True
 
     while after_input:
-        cont = input("Is this correct? (yes/no)")
+        cont = input("Is this correct? (yes/no): ")
         if cont.lower() == "yes":
             if not find_zero(game):
                 print("The Board is full already, Please try to input the puzzle again.")
+                clear(game, max_num)
                 solver(game)
                 return
             elif solve(game):
-                print("The Solution:")
+                print("The Solution: ")
                 print_board(game)
                 input_run = True
                 while input_run:
@@ -217,6 +228,7 @@ def solver(game):
                         print("Incorrect input, please try again.")
             else:
                 print("Puzzle not Solvable! Please try to input the puzzle again.")
+                clear(game, max_num)
                 solver(game)
                 return
         elif cont.lower() == "no":
@@ -231,7 +243,7 @@ def main():
     main_run = True
     choice_run = True
     while main_run:
-        choice = input("Would you like a Sudoku Puzzle, or would you like to use the solver? (puzzle / solver)")
+        choice = input("Would you like a Sudoku Puzzle, or would you like to use the solver? (puzzle / solver): ")
         if choice.lower() == "solver":
             solver(board)
             main_run = False
