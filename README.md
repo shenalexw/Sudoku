@@ -1,4 +1,4 @@
-# Sudoku
+# Sudoku 🧩
 
 ## Table of Contents
 - [Abstract](#Abstract)
