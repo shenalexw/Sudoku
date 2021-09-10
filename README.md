@@ -62,7 +62,7 @@ Solution:
  |  8 5 9  |  3 7 2  |  6 4 1  |
   - - - - - - - - - - - - - - - -
 Nice Job!, It took you 0:25:54 to complete the puzzle.
-Would you like another puzzle? (yes/no)
+Would you like another puzzle? (yes/no): 
 ```
 ### Solver
 Users are to input their given puzzle from left to right starting from the first row. If any mistakes were to happen, the user will have to reinput their puzzle from the beginning. 
