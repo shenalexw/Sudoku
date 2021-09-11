@@ -6,8 +6,6 @@
 - [References](#references)
 - [Author(s)](#author-info)
 
----
-
 ## Abstract
 
 The classic Sudoku game involves a grid of 81 squares. The grid is divided into nine blocks, each containing nine squares.
@@ -17,8 +15,6 @@ The rules of the game are simple: each of the nine blocks has to contain all the
 The difficulty lies in that each vertical nine-square column, or horizontal nine-square line across, within the larger square, must also contain the numbers 1-9, without repetition or omission.
 
 This python file allows the users to solve any sudoku puzzle as well as recieve a sudoku puzzle based on selected difficulty.
-
----
 
 ## How To Use
 
@@ -114,14 +110,10 @@ The Solution:
   - - - - - - - - - - - - - - - -
 Would you like to input another puzzle? (yes/no)
 ```
----
 
 ## References
-
 - [Minimum clues for a puzzle](https://www.technologyreview.com/2012/01/06/188520/mathematicians-solve-minimum-sudoku-problem/#:~:text=Sudoku%20fanatics%20have%20found%20numerous,lurking%20somewhere%20in%20puzzle%20space)
 - [How to create a sudoku puzzle](https://www.sudokuwiki.org/sudoku_creation_and_grading.pdf)
-
----
 
 ## Author Info
 #### Alexander Shen - Developer
